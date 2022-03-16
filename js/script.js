@@ -49,11 +49,11 @@ const displayUserData = (PROFILE_DATA) =>{
     getGithubRepos();
 }
 
-const repoDisplayInfo = (REPO_DATA) =>{
+const repoDisplayInfo = (REPO_DATA) =>{ //Gets repo names from gitHub API creates list items and gives them class name of repo
     for (let i= 0; i < REPO_DATA.length; i++){
         const REP_LIST_ITEM = document.createElement("li");
         REP_LIST_ITEM.classList.add("repo");
         UL_REPO_DISPLAY.appendChild(REP_LIST_ITEM);
-        REP_LIST_ITEM.innerHTML = REPO_DATA[i].name;
+        REP_LIST_ITEM.innerHTML = `<h3>${REPO_DATA[i].name}</h3>`;
     }
 }
