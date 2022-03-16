@@ -1,7 +1,9 @@
 const OVERVIEW = document.getElementById('overview');//selects DIV with class name overview
 const USER_NAME = "mikaturner";
+const BACK_TO_GALLERY = document.getElementById('view-repos');//Return to repo gallery button selector
 const UL_REPO_DISPLAY = document.getElementById('repo-list');//place where repos will display
 const SECTION_SELECT = document.getElementById('repos'); //where all repo information appears
+const FILTER_INPUT = document.getElementById('filter-repos');//input for searching repos
 const SECTION_REPO_DATA = document.getElementById('repo-data'); //where individual repo data will display
 let repoData = [];//Empty array to store repo data from gitHub API
 
@@ -18,8 +20,7 @@ const getGithubRepos = async () =>
 {
     const GIT_HUB_REPO_REQ = await fetch (`https://api.github.com/users/${USER_NAME}/repos??type=public&sort=updated&per_page=100`);
     repoData = await GIT_HUB_REPO_REQ.json();
-    repoDisplayInfo(repoData);
-    console.log(repoData);
+    repoDisplayInfo();
 }
 
 const displayUserData = (PROFILE_DATA) =>
@@ -56,8 +57,10 @@ const displayUserData = (PROFILE_DATA) =>
     getGithubRepos();
 }
 
-const repoDisplayInfo = (repoData) => //Gets repo names from gitHub API creates list items and gives them class name of repo
+const repoDisplayInfo = () => //Gets repo names from gitHub API creates list items and gives them class name of repo
 {
+    FILTER_INPUT.classList.remove("hide");
+
     for (let i= 0; i < repoData.length; i++)
     {
         const REP_LIST_ITEM = document.createElement("li");
@@ -66,15 +69,6 @@ const repoDisplayInfo = (repoData) => //Gets repo names from gitHub API creates 
         REP_LIST_ITEM.innerHTML = `<h3>${repoData[i].name}</h3>`;
     }
 }
-
-UL_REPO_DISPLAY.addEventListener("click", (e) =>
-{
-    if (e.target.matches("h3"))
-    {
-        let repoName = e.target.innerText;
-        repoDetails(repoName);
-    }
-})
 
 const repoDetails = (repoName) =>
 {
@@ -115,4 +109,35 @@ const repoDetails = (repoName) =>
 
     SECTION_REPO_DATA.classList.remove("hide");
     SECTION_SELECT.classList.add("hide");
+    BACK_TO_GALLERY.classList.remove("hide");
 }
+
+UL_REPO_DISPLAY.addEventListener("click", (e) =>
+{
+    if (e.target.matches("h3"))
+    {
+        let repoName = e.target.innerText;
+        repoDetails(repoName);
+    }
+})
+
+BACK_TO_GALLERY.addEventListener("click", () =>
+{
+    SECTION_SELECT.classList.remove("hide");
+    SECTION_REPO_DATA.classList.add("hide");
+    BACK_TO_GALLERY.classList.add("hide");
+})
+
+FILTER_INPUT.addEventListener("input", () =>
+{
+    let userInput = FILTER_INPUT.value.toLowerCase();
+    let allRepos = document.querySelectorAll(".repo");
+
+    for (const r of allRepos)
+    {
+       if (r.innerText.toLowerCase().includes(userInput))
+           r.classList.remove("hide");
+       else
+           r.classList.add("hide");
+    } 
+})
