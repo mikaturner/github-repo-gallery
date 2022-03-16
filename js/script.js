@@ -20,20 +20,23 @@ const displayUserData = (PROFILE_DATA) =>{
     DIV.classList.add("user-info");//sets a class name of "user-info" to div
     OVERVIEW.appendChild(DIV); //Sets the div with class overview to be the parent of DIV
     DIV.appendChild(FIGURE);
+
+    const PARA_DIV = document.createElement("div");//create a container for all paragraph elements
+    DIV.appendChild(PARA_DIV);
     
     const PARAGRAPH_NAME = document.createElement("p");//child element of div
-    DIV.appendChild(PARAGRAPH_NAME);//nest p element inside of parent
+    PARA_DIV.appendChild(PARAGRAPH_NAME);//nest p element inside of parent
     PARAGRAPH_NAME.innerHTML = `<strong>Name:</strong> ${PROFILE_DATA.name}`;
     
     const PARAGRAPH_BIO = document.createElement("p");//child element of div
-    DIV.appendChild(PARAGRAPH_BIO);//nest p element inside of parent
+    PARA_DIV.appendChild(PARAGRAPH_BIO);//nest p element inside of parent
     PARAGRAPH_BIO.innerHTML = `<strong>Bio:</strong>${PROFILE_DATA.bio}`;
     
     const PARAGRAPH_LOCATION = document.createElement("p");//child element of div
-    DIV.appendChild(PARAGRAPH_LOCATION);//nest p element inside of parent
+    PARA_DIV.appendChild(PARAGRAPH_LOCATION);//nest p element inside of parent
     PARAGRAPH_LOCATION.innerHTML = `<strong>Location:</strong> ${PROFILE_DATA.location}`;
     
     const PARAGRAPH_REP_NUM = document.createElement("p");//child element of div
-    DIV.appendChild(PARAGRAPH_REP_NUM);//nest p element inside of parent
+    PARA_DIV.appendChild(PARAGRAPH_REP_NUM);//nest p element inside of parent
     PARAGRAPH_REP_NUM.innerHTML = `<strong>Number of public repos:</strong> ${PROFILE_DATA.public_repos} `;
 }

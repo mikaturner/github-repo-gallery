@@ -116,6 +116,7 @@ ul {
 .user-info figure {
     width: 90%;
     max-width: 200px;
+    float: left;
 }
 
 .user-info img {
